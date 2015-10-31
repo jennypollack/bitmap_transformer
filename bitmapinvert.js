@@ -16,12 +16,12 @@ function readFile(file) {
   fs.readFile(file, function(err, data) {
     if (err) return console.log(err);
     fileEvents.emit('donebitmap', data);
+    return data
   });
 };
 
 
 function buildObject(buffer) {
-  // console.log(buffer);
   var bitmapObject = {};
 
   bitmapObject.headerField    = buffer.toString('utf-8',0 , 2);
@@ -35,13 +35,22 @@ function buildObject(buffer) {
   bitmapObject.numberColors   = buffer.readUInt32LE(46);
   bitmapObject.pixelData      = buffer.slice(1078, buffer.length);
   bitmapObject.colorTable     = buffer.slice(54, 1078);
-  // event emitter to do transform
   return bitmapObject
 };
 
 fileEvents.on('donebitmap', function(data) {
   console.log("creating object");
-  console.log(buildObject(data));
+  var bitmapObject = buildObject(data);
+  console.log(bitmapObject);
+  Array.prototype.forEach.call(bitmapObject.colorTable, function(byte, index) {
+    bitmapObject.colorTable.writeUInt8(255 - byte, index);
+  });
+  data.writeUIntLE(bitmapObject.colorTable, 54);
+  fs.writeFile('transformedbitmap.bmp', data, function (err) {
+    if (err) throw err;
+    console.log('File Saved');
+  });
+
 });
 
 readFile('bitmap1.bmp');
