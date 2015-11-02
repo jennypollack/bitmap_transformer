@@ -1,10 +1,14 @@
 var expect = require('chai').expect;
-var invert = require(__dirname + '/../lib/invert');
-//var readfile = require(__dirname + '/../lib/readfile');
+var Transform = require(__dirname + '/../lib/transform');
 
-describe('function that inverts a bitmap ...', function(){
-	it('should change the pixels in the bitmap ...', function(){
-		console.log('in a test'); 
-		console.log(invert); 
-	}); 
+var transformer = new Transform();
+console.log(transformer);
+
+describe('readfile function', function(){
+  it('should create a buffer', function(done) {
+    console.log("opening: "+ __dirname + '/../bitmap1.bmp');
+    transformer.readFile(__dirname + '/../bitmap1.bmp');
+    expect(transformer.bmpBuffer instanceof Buffer);
+    done();
+  });
 });
