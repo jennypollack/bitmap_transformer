@@ -30,6 +30,32 @@ gulp.task('mocha', function(){
 		.pipe(mocha({reporter: 'spec'}));
 });
 
+gulp.task('jshint:app', function() {
+  return gulp.src(appFiles)
+    .pipe(jshint({
+        node: true,
+        globals: {
+            describe: true,
+            it: true, 
+            before: true,
+            after: true
+        }
+    }))
+    .pipe(jshint.reporter('default'));
+});
 
-gulp.task('jshint', ['jshint:test']);
+gulp.task('mocha', function(){
+  return gulp.src(testFiles)
+      .pipe(jshint({
+        node: true,
+        globals: {
+          describe: true,
+          it: true
+      }
+    }))
+    .pipe(mocha({reporter: 'spec'}));
+});
+
+
+gulp.task('jshint', ['jshint:test', 'jshint:app']);
 gulp.task('default', ['jshint', 'mocha']);
