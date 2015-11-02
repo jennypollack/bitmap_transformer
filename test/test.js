@@ -5,10 +5,15 @@ var transformer = new Transform();
 console.log(transformer);
 
 describe('readfile function', function(){
-  it('should create a buffer', function(done) {
-    console.log("opening: "+ __dirname + '/../bitmap1.bmp');
+  before(function(done) {
     transformer.readFile(__dirname + '/../bitmap1.bmp');
-    expect(transformer.bmpBuffer instanceof Buffer);
     done();
+  });
+  it('should create a buffer', function() {
+    console.log(transformer.bmpBuffer);
+    expect(transformer.bmpBuffer instanceof Buffer).to.be.true;
+  });
+  it('should be non-zero in size', function() {
+    expect(transformer.bmpBuffer).not.to.be.null;
   });
 });
