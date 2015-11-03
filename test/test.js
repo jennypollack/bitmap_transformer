@@ -4,7 +4,7 @@ var fs = require('fs');
 
 var transformer = new Transform();
 // console.log(transformer);
-myBuff = null;
+var myBuff = null;
 
 before(function(done) {
   transformer.readFile(__dirname + '/../bitmap1.bmp', function(err, data) {

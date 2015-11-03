@@ -13,7 +13,7 @@
     "type": "git",
     "url": "git+https://github.com/jennypollack/bitmap_transformer.git"
   },
-  "author": "",
+  "author": "Jenny Pollack, Matthew Ringel, Spencer Caldwell",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/jennypollack/bitmap_transformer/issues"
