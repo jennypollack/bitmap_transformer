@@ -1,7 +1,8 @@
-var transform = require(__dirname + '/lib/transform');
+var Transform = require(__dirname + '/lib/transform');
 
-var something = new transform();
-console.log(something);
+var transformer = new Transform();
 
-something.listener();
-something.readFile('bitmap1.bmp');
+transformer.listener();
+transformer.readFile('bitmap1.bmp', function(){
+  console.log("readfile");
+});
