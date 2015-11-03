@@ -1,5 +1,6 @@
 var expect = require('chai').expect;
 var Transform = require(__dirname + '/../lib/transform');
+var fs = require('fs'); 
 
 var transformer = new Transform();
 // console.log(transformer);
@@ -19,5 +20,13 @@ describe('readfile function', function(){
   });
   it('should not be null', function() {
     expect(myBuff).not.to.be.null;
+  });
+});
+
+describe('checks for created file transformedbitmap.bmp', function(){
+  it('checks to see if a file exists', function(){
+    //this works - but the existsSync is deprecated... 
+    expect(fs.existsSync('transformedbitmap.bmp')).to.eql(true);
+
   });
 });
